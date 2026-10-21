@@ -27,4 +27,4 @@
 
 SPW Workshop API、Kotlin、Compose、Skia 和 Skiko 由宿主提供，不随插件重复打包。Gradle Wrapper 使用 Apache-2.0 许可证。
 
-内置字体为 Adobe [思源黑体 SC（Source Han Sans SC）2.005](https://github.com/adobe-fonts/source-han-sans/releases/tag/2.005R)，使用官方未修改的 `SourceHanSansSC-VF.ttf` 可变字体（字重轴 250–900）。Copyright 2014–2025 Adobe，采用 SIL Open Font License 1.1，保留字体内嵌版权信息与保留字体名称；原许可证见 `licenses/OFL-1.1-Source-Han-Sans.txt`。该字体不适用本项目的 AGPL-3.0-only 许可证。
+内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`，字重轴 150–700）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 采用 MiSans 字体许可，许可证见 `licenses/MiSans-License.pdf`。该字体不适用本项目的 AGPL-3.0-only 许可证。

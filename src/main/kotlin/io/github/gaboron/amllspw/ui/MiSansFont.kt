@@ -7,10 +7,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.platform.Font
 
 /** One shared variable font resource; Compose retains system fallback for missing glyphs. */
-internal object SourceHanSansFont {
-    private const val RESOURCE = "/fonts/SourceHanSansSC-VF.ttf"
+internal object MiSansFont {
+    private const val RESOURCE = "/fonts/MiSansVF.ttf"
     private val bytes: ByteArray by lazy {
-        checkNotNull(SourceHanSansFont::class.java.getResourceAsStream(RESOURCE)) {
+        checkNotNull(MiSansFont::class.java.getResourceAsStream(RESOURCE)) {
             "Missing bundled lyric font: $RESOURCE"
         }.use { it.readBytes() }
     }

@@ -6,17 +6,17 @@ import androidx.compose.ui.text.font.FontSynthesis
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-internal enum class LyricFontWeight(val value: String, weight: Int = value.toInt()) {
-    // Preserve the existing preference key; the variable font's real lower limit is 250.
-    EXTRA_LIGHT("200", 250),
-    LIGHT("300"),
-    REGULAR("400"),
-    MEDIUM("500"),
-    BOLD("700"),
-    HEAVY("900");
+internal enum class LyricFontWeight(val value: String, weight: Int) {
+    // Preference keys stay stable; values follow MiSans VF's named instances (wght 150-700).
+    EXTRA_LIGHT("200", 200),
+    LIGHT("300", 250),
+    REGULAR("400", 330),
+    MEDIUM("500", 380),
+    BOLD("700", 630),
+    HEAVY("900", 700);
 
     val fontWeight = FontWeight(weight)
-    val family: FontFamily by lazy { SourceHanSansFont.family(fontWeight) }
+    val family: FontFamily by lazy { MiSansFont.family(fontWeight) }
 
     companion object {
         val DEFAULT = MEDIUM
