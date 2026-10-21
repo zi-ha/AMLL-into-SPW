@@ -10,5 +10,6 @@ internal class FooterBridge(endpoint: FooterReceiverMBean,
     private val server: MBeanServer = ManagementFactory.getPlatformMBeanServer()) : AutoCloseable {
     init { server.registerMBean(StandardMBean(endpoint, FooterReceiverMBean::class.java, false), NAME) }
     override fun close() { if (server.isRegistered(NAME)) server.unregisterMBean(NAME) }
+    // Stable wire identifier shared with footer providers; keep it unchanged when rebranding the plugin.
     companion object { val NAME = ObjectName("io.github.gaboron.amllspw:type=FooterReceiver,version=1") }
 }

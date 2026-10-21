@@ -1,5 +1,7 @@
 # 第三方组件
 
+> 本项目是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，修改日期 2026-10-21。上游及本修改版均以 AGPL-3.0-only 发布；修改声明见 [NOTICE.md](NOTICE.md)。
+
 本项目使用 AGPL-3.0-only。原生 Compose 绘制实现参考 [Apple Music-like Lyrics](https://github.com/amll-dev/applemusic-like-lyrics) 的歌词交互与演出设计；未嵌入其网页运行时。
 
 `WordAnimation.kt`、`ActivationEnvelope.kt` 和 `ViewportMotion.kt` 中的浮起、长音强调、亮度过渡与弹簧参数以 AMLL core 的对应实现为依据移植为 Kotlin；原实现由 SteveXMH 及 AMLL 贡献者维护，采用 AGPL-3.0-only。对应源码见 [float](https://github.com/amll-dev/applemusic-like-lyrics/blob/main/packages/core/src/lyric-player/dom/animation/float/index.ts)、[emphasize](https://github.com/amll-dev/applemusic-like-lyrics/blob/main/packages/core/src/lyric-player/dom/animation/emphasize/index.ts)、[line-brightness](https://github.com/amll-dev/applemusic-like-lyrics/blob/main/packages/core/src/lyric-player/dom/line-brightness.ts) 和 [spring](https://github.com/amll-dev/applemusic-like-lyrics/blob/main/packages/core/src/lyric-player/base/spring.ts)。本项目的修改包括原生时间轴计算、字形裁剪绘制及独立行错峰调度。
@@ -27,4 +29,4 @@
 
 SPW Workshop API、Kotlin、Compose、Skia 和 Skiko 由宿主提供，不随插件重复打包。Gradle Wrapper 使用 Apache-2.0 许可证。
 
-内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`，字重轴 150–700）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 采用 MiSans 字体许可，许可证见 `licenses/MiSans-License.pdf`。该字体不适用本项目的 AGPL-3.0-only 许可证。
+内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`，字重轴 150–700）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 采用 MiSans 字体许可，许可证见 `licenses/MiSans-License.pdf`。该字体以嵌入式方式随插件及其源码包分发，未单独作为字体产品提供下载，且不适用本项目的 AGPL-3.0-only 许可证。

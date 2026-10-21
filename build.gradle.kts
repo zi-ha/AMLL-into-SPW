@@ -8,7 +8,7 @@ plugins {
     id("com.xuncorp.spw.workshop") version "0.1.0-dev23"
 }
 
-group = "io.github.gaboron.amllspw"
+group = "io.github.ziha.amllspw"
 val dependencySources = configurations.create("dependencySources") { isTransitive = false }
 java { toolchain { languageVersion.set(JavaLanguageVersion.of(25)) } }
 kotlin { compilerOptions {
@@ -29,30 +29,31 @@ dependencies {
 
 spmod {
     PluginClass = "io.github.gaboron.amllspw.host.AmllPlugin"
-    PluginId = "io.github.gaboron.amllspw"
-    PluginName = "AMLL into SPW"
-    PluginProvider = "GaBoron"
+    PluginId = "io.github.ziha.amllspw"
+    PluginName = "AMLL 动态歌词（MiSans）"
+    PluginProvider = "zi-ha"
     PluginVersion = project.version.toString()
-    PluginDescription = "在 SPW 原生播放界面呈现 TTML 动态歌词"
-    PluginOpenSourceUrl = "https://github.com/GaBoron/AMLL-into-SPW"
+    PluginDescription = "AMLL into SPW（MiSans）"
+    PluginOpenSourceUrl = "https://github.com/zi-ha/AMLL-into-SPW"
     PluginHasConfig = true
     PluginPermissions = listOf(PluginPermission.CLASS_TRANSFORM, PluginPermission.LIBRARY_READ)
 }
 
 val sourceArchive = tasks.register<Zip>("sourceArchive") {
-    archiveFileName.set("amll-into-spw-${project.version}-source.zip")
+    archiveFileName.set("amll-lyrics-misans-${project.version}-source.zip")
     destinationDirectory.set(layout.buildDirectory.dir("distributions"))
     from("src/main") { into("src/main") }
     from("gradle") { into("gradle") }
     from("docs") { into("docs") }
     from("licenses") { into("licenses") }
-    from("build.gradle.kts", "settings.gradle.kts", "gradle.properties", "gradlew", "gradlew.bat", ".gitignore", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md")
+    from("build.gradle.kts", "settings.gradle.kts", "gradle.properties", "gradlew", "gradlew.bat", ".gitignore",
+        "README.md", "LICENSE", "NOTICE.md", "THIRD_PARTY_NOTICES.md")
 }
 
 tasks.named<Zip>("plugin") {
     dependsOn(sourceArchive)
-    archiveFileName.set("amll-into-spw-${project.version}.spmod")
-    from("LICENSE", "README.md", "THIRD_PARTY_NOTICES.md")
+    archiveFileName.set("amll-lyrics-misans-${project.version}.spmod")
+    from("LICENSE", "README.md", "NOTICE.md", "THIRD_PARTY_NOTICES.md")
     into("licenses") { from("licenses") }
     into("source") { from(sourceArchive); from(dependencySources) }
 }

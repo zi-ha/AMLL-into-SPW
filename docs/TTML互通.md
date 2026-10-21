@@ -1,14 +1,16 @@
 # 原始 TTML 接入指南
 
-AMLL into SPW 向歌词提供插件开放进程内 TTML 接口。发送端可在完成本地读取、缓存命中或在线获取后直接提交原始 XML，保留演唱者、背景人声、翻译、音译和注音。本文提供通用接入模板，末尾以已完成接入的 SPW Lyrics 为例。
+AMLL 动态歌词（MiSans）向歌词提供插件开放进程内 TTML 接口。发送端可在完成本地读取、缓存命中或在线获取后直接提交原始 XML，保留演唱者、背景人声、翻译、音译和注音。本文提供通用接入模板，末尾以已完成接入的 SPW Lyrics 为例。
 
-接口通过 JVM 平台 MBeanServer 发现，跨 PF4J 类加载器工作，不需要依赖对方的 JAR，也不启动网络服务。仅在 AMLL into SPW 启用期间注册。
+接口通过 JVM 平台 MBeanServer 发现，跨 PF4J 类加载器工作，不需要依赖对方的 JAR，也不启动网络服务。仅在本插件启用期间注册。
 
 如需补充作者、匹配来源等 key/value 信息，可另外使用 [底部信息栏接口](底部信息栏接口.md)。该接口独立于 TTML 提交，统一生成 `From: …`；原始 TTML 协议及实际歌词来源的判定保持不变。
 
 ## 协议 1
 
 ObjectName：`io.github.gaboron.amllspw:type=TtmlReceiver,version=1`
+
+该 ObjectName 是跨插件协议标识，沿用上游值以兼容已接入的 SPW Lyrics；插件更名不会改变它。
 
 | 属性或操作 | 类型与含义 |
 | --- | --- |

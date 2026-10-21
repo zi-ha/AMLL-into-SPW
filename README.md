@@ -1,6 +1,8 @@
-# AMLL into SPW
+# AMLL 动态歌词（MiSans）
 
 将 Apple Music 风格的动态歌词融入 [Salt Player for Windows](https://github.com/Moriafly/SPW)（SPW）原生播放界面。
+
+> 本项目是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，基于上游 0.4.0，自 2026-10-21 起由 zi-ha 维护。主要修改：内置 MiSans VF、改进纯音乐识别。完整修改声明见 [NOTICE.md](NOTICE.md)。
 
 插件通过 [SPW Workshop API](https://github.com/Moriafly/spw-workshop-api) 接入原生播放页面，以 Compose / Skia 呈现 [Apple Music-like Lyrics（AMLL）](https://github.com/amll-dev/applemusic-like-lyrics) 风格的歌词效果。正常进入 SPW 播放界面即可使用，保留宿主播放控制，无需打开独立窗口。
 
@@ -11,7 +13,7 @@
 - 弹簧滚动、错落位移、活动行缩放、非活动行模糊和视口边缘淡出。
 - 持续密集换行时缩短过渡并平滑跟随，同步高亮与声部显示；近同时声部或偶发短间隔保留普通弹簧，只有持续明显落后时才启用平滑追赶。
 - 显示翻译、音译和 Ruby 注音；长句参考标点、空格和词界均衡换行，并保留歌词原有的换行。
-- 内置与 SPW 界面一致的 MiSans 可变字体，可在设置下拉框选择 ExtraLight、Light、Regular、Medium、Bold 和 Heavy 六种字重，默认中等，最粗 Heavy，字体缺少的字符回退到系统字体；字号可选自动适应窗口或 18–72 的预设值，翻译、音译与注音按比例缩放。
+- 内置与 SPW 界面一致的 MiSans 可变字体（© Xiaomi，按 MiSans 字体许可使用），可在设置下拉框选择 ExtraLight、Light、Regular、Medium、Bold 和 Heavy 六种字重，默认中等，最粗 Heavy，字体缺少的字符回退到系统字体；字号可选自动适应窗口或 18–72 的预设值，翻译、音译与注音按比例缩放。
 - 歌词区域透明衔接 SPW 整页背景，前奏与长间奏在独立占位中显示三点提示。
 - 末尾独立底栏显示歌词文件中的歌曲元数据和实际歌词来源；以较小、较淡的文字随歌词滚动，唱完后聚焦显示，可手动滚动查看完整内容。其他插件可补充 key/value 信息：AMLL 自身信息在前，插件信息按声明名称的拼音／字母顺序排列，每组末尾以更小、更淡的 `From: 名称` 标注来源。
 - 鼠标悬停显示歌词行框，点击歌词跳转并平滑滚动；滚轮、方向键和 Page Up / Page Down 浏览，停止操作约三秒后恢复跟随；双击、Home 或 Esc 立即恢复跟随。
@@ -39,14 +41,15 @@
 
 使用 **SPW 1.19.0 / Workshop API 0.1.0-dev23**。启用时需要授权“修改宿主类 / 界面”和“读取曲库”。
 
-从 [Releases](https://github.com/GaBoron/AMLL-into-SPW/releases/latest) 下载 `.spmod` 文件，使用 SPW 的插件安装功能安装，授权后启用。歌词获取插件可保持原有流程，已接入的插件会自动提交原始 TTML；歌曲本地 TTML 仍优先显示。
+从 [Releases](https://github.com/zi-ha/AMLL-into-SPW/releases/latest) 下载 `.spmod` 文件，使用 SPW 的插件安装功能安装，授权后启用。歌词获取插件可保持原有流程，已接入的插件会自动提交原始 TTML；歌曲本地 TTML 仍优先显示。
 
 停用插件后恢复宿主歌词界面，关闭 TTML 与底部信息栏接口，并清空外部信息。
 
 ## 相关项目
 
+- [AMLL into SPW](https://github.com/GaBoron/AMLL-into-SPW)：本项目的上游项目。
 - [Salt Player for Windows](https://github.com/Moriafly/SPW)：目标播放器。
 - [SPW Workshop API](https://github.com/Moriafly/spw-workshop-api)：插件与原生 Hook 接口。
 - [Apple Music-like Lyrics](https://github.com/amll-dev/applemusic-like-lyrics)：歌词效果和交互设计的主要参考。
 
-本项目是独立的社区项目，不代表上述项目的官方合作或支持。使用 AGPL-3.0-only，第三方组件见 [许可证说明](THIRD_PARTY_NOTICES.md)。
+本项目是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，不代表上游或上述项目的官方合作或支持。使用 AGPL-3.0-only，第三方组件见 [许可证说明](THIRD_PARTY_NOTICES.md)，修改声明见 [NOTICE.md](NOTICE.md)。

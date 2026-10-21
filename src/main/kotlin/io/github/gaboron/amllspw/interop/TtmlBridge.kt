@@ -9,5 +9,6 @@ import javax.management.StandardMBean
 internal class TtmlBridge(endpoint: TtmlReceiverMBean, private val server: MBeanServer = ManagementFactory.getPlatformMBeanServer()) : AutoCloseable {
     init { server.registerMBean(StandardMBean(endpoint, TtmlReceiverMBean::class.java, false), NAME) }
     override fun close() { if (server.isRegistered(NAME)) server.unregisterMBean(NAME) }
+    // Stable wire identifier shared with SPW Lyrics; keep it unchanged when rebranding the plugin.
     companion object { val NAME = ObjectName("io.github.gaboron.amllspw:type=TtmlReceiver,version=1") }
 }
