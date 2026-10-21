@@ -3,10 +3,13 @@ package io.github.gaboron.amllspw.ui
 internal data class RenderOptions(
     val blur: Boolean = true,
     val scale: Boolean = true,
+    val wordLift: Boolean = true,
     val glow: Boolean = true,
     val spring: Boolean = true,
     val background: Boolean = false,
     val hidePassed: Boolean = false,
+    val footer: Boolean = true,
+    val showSource: Boolean = false,
     val romanization: Boolean = true,
     val reducedMotion: Boolean = false,
     val coloredLyrics: Boolean = false,

@@ -14,3 +14,4 @@ local.properties
 **/*Test.java
 **/*Tests.kt
 **/*Tests.java
+.workbuddy/

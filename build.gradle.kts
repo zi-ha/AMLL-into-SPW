@@ -40,7 +40,7 @@ spmod {
 }
 
 val sourceArchive = tasks.register<Zip>("sourceArchive") {
-    archiveFileName.set("amll-lyrics-misans-${project.version}-source.zip")
+    archiveFileName.set("amll-into-spw-misans-${project.version}-source.zip")
     destinationDirectory.set(layout.buildDirectory.dir("distributions"))
     from("src/main") { into("src/main") }
     from("gradle") { into("gradle") }
@@ -52,7 +52,7 @@ val sourceArchive = tasks.register<Zip>("sourceArchive") {
 
 tasks.named<Zip>("plugin") {
     dependsOn(sourceArchive)
-    archiveFileName.set("amll-lyrics-misans-${project.version}.spmod")
+    archiveFileName.set("amll-into-spw-misans-${project.version}.spmod")
     from("LICENSE", "README.md", "NOTICE.md", "THIRD_PARTY_NOTICES.md")
     into("licenses") { from("licenses") }
     into("source") { from(sourceArchive); from(dependencySources) }

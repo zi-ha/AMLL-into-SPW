@@ -5,9 +5,9 @@
     "preferences": [
       {
         "type": "list", "key": "font_weight", "title": "歌词字重",
-        "entries": ["特细 ExtraLight", "细体 Light", "常规 Regular", "中等 Medium", "粗体 Bold", "特粗 Heavy"],
-        "entry_values": ["200", "300", "400", "500", "700", "900"],
-        "default_value": "500", "summary": "使用与 SPW 界面一致的内置 MiSans 可变字体，默认中等，最粗 Heavy；同时应用于歌词、翻译和注音，缺少的字符回退到系统字体。"
+        "entries": ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+        "entry_values": ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+        "default_value": "500", "summary": "同时应用于歌词、翻译和注音，缺少的字符回退到系统字体。"
       },
       {
         "type": "list", "key": "font_size", "title": "歌词字号",
@@ -16,12 +16,15 @@
         "default_value": "auto", "summary": "主歌词字号；翻译、音译和注音按比例缩放。默认自动适应窗口宽度。"
       },
       { "type": "switch", "key": "blur", "title": "模糊非活动歌词", "default_value": true },
-      { "type": "switch", "key": "scale", "title": "歌词缩放与逐字浮动", "default_value": true },
+      { "type": "switch", "key": "scale", "title": "歌词缩放", "default_value": true, "summary": "活动歌词行与逐字高亮的缩放效果。" },
+      { "type": "switch", "key": "word_lift", "title": "逐字歌词上浮", "default_value": true, "summary": "演唱时逐字向上浮动；关闭后保留高亮、缩放和发光。" },
       { "type": "switch", "key": "glow", "title": "长音发光", "default_value": true },
       { "type": "switch", "key": "colored_lyrics", "title": "彩色歌词", "default_value": false, "summary": "从歌曲封面提取主色，为歌词、翻译和间奏提示着色。" },
       { "type": "switch", "key": "spring", "title": "弹簧滚动与错落动画", "default_value": true },
       { "type": "switch", "key": "hide_passed", "title": "隐藏已唱过的歌词", "default_value": false },
       { "type": "switch", "key": "romanization", "title": "显示音译与注音", "default_value": true },
+      { "type": "switch", "key": "show_footer", "title": "末尾信息栏", "default_value": true, "summary": "歌词末尾的歌曲元数据与其他插件信息。" },
+      { "type": "switch", "key": "show_source", "title": "显示歌词来源", "default_value": false, "summary": "在末尾信息栏中标注歌词来自哪个文件或接口；默认关闭。" },
       { "type": "switch", "key": "reduced_motion", "title": "减少动态效果", "default_value": false, "summary": "关闭模糊、发光、缩放与弹簧动画，保留准确的逐字高亮。" }
     ]
   }]

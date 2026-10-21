@@ -14,13 +14,16 @@ internal object MiSansFont {
             "Missing bundled lyric font: $RESOURCE"
         }.use { it.readBytes() }
     }
+    private val families = java.util.concurrent.ConcurrentHashMap<Int, FontFamily>()
 
     @OptIn(ExperimentalTextApi::class)
-    fun family(weight: FontWeight): FontFamily = FontFamily(Font(
-        identity = "io.github.gaboron.amllspw$RESOURCE#wght=${weight.weight}",
-        data = bytes,
-        weight = weight,
-        // Matching weight alone does not select a variable font's actual outline instance.
-        variationSettings = FontVariation.Settings(FontVariation.weight(weight.weight)),
-    ))
+    fun family(weight: FontWeight): FontFamily = families.getOrPut(weight.weight) {
+        FontFamily(Font(
+            identity = "io.github.gaboron.amllspw$RESOURCE#wght=${weight.weight}",
+            data = bytes,
+            weight = weight,
+            // Matching weight alone does not select a variable font's actual outline instance.
+            variationSettings = FontVariation.Settings(FontVariation.weight(weight.weight)),
+        ))
+    }
 }

@@ -28,7 +28,7 @@ internal class WordHighlightPainter : AutoCloseable {
             val rect = glyph.bounds
             val animation = if (options.reducedMotion) WordAnimation.Transform() else
                 region.animation.evaluate(timeMs, glyph.character)
-            val lift = if (options.scale) animation.liftEm * layout.emPx * highlight else 0f
+            val lift = if (options.scale && options.wordLift) animation.liftEm * layout.emPx * highlight else 0f
             val scale = if (options.scale) 1f + (animation.scale - 1f) * highlight else 1f
             val part = region.rects.getOrNull(glyph.part) ?: continue
             val edge = progress * region.totalWidth - region.partOffsets[glyph.part]

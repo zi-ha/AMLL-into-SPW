@@ -30,8 +30,12 @@ internal fun NativeLyricsSurface(presentation: LyricsPresentation, options: Rend
     val painter = remember(measurer) { LyricLinePainter(measurer) }
     val footerPainter = remember { LyricFooterPainter() }
     DisposableEffect(painter, footerPainter) { onDispose { painter.close(); footerPainter.close() } }
-    val footerContent = bottomContent ?: remember(presentation.document, presentation.footer) {
-        LyricFooterContent.from(presentation.document, presentation.footer)
+    val footerContent = when {
+        !options.footer -> LyricFooterContent()
+        bottomContent != null -> bottomContent
+        else -> remember(presentation.document, presentation.footer, options.showSource) {
+            LyricFooterContent.from(presentation.document, presentation.footer, options.showSource)
+        }
     }
     val viewport = remember(presentation.trackKey, presentation.document) { ViewportMotion() }
     val pointer = remember(viewport) { LyricPointerState() }

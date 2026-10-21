@@ -22,16 +22,18 @@ internal data class LyricFooterContent(val fields: List<Pair<String, String>> = 
     val text: String = sections.joinToString("\n") { it.text }
 
     companion object {
-        fun from(document: LyricDocument, contributions: List<FooterContribution> = emptyList()): LyricFooterContent =
-            LyricFooterContent(documentFields(document), contributions)
+        fun from(document: LyricDocument, contributions: List<FooterContribution> = emptyList(),
+            showSource: Boolean = true): LyricFooterContent =
+            LyricFooterContent(documentFields(document, showSource), contributions)
 
-        private fun documentFields(document: LyricDocument): List<Pair<String, String>> {
+        private fun documentFields(document: LyricDocument, showSource: Boolean): List<Pair<String, String>> {
             if (document.lines.isEmpty()) return emptyList()
             val fields = document.metadata.mapNotNull { entry ->
                 val value = entry.values.filter(String::isNotBlank).joinToString(" / ")
                 if (value.isBlank()) null else (labels[entry.key] ?: if (entry.key.startsWith("agent:"))
                     "演唱者 ${entry.key.substringAfter(':')}" else entry.key) to value
             }
+            if (!showSource) return fields
             val source = when (document.source) {
                 LyricSource.TTML_FILE -> "歌曲同名 TTML 文件"
                 LyricSource.EMBEDDED_TTML -> "音频标签内嵌 TTML"

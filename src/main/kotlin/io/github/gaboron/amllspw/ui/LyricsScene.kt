@@ -25,7 +25,10 @@ internal fun LyricsScene(presentation: LyricsPresentation, options: RenderOption
         }) { scene ->
         val poem = scene.poem
         if (scene.isInstrumental && poem != null) {
-            val footer = remember(scene.document, scene.footer) { LyricFooterContent.from(scene.document, scene.footer) }
+            // Instrumental pages have no lyric source to cite; only third-party contributions remain.
+            val footer = remember(options.footer, scene.footer) {
+                if (options.footer) LyricFooterContent(contributions = scene.footer) else LyricFooterContent()
+            }
             InstrumentalPoetrySurface(poem, options, scene.lyricColor, Modifier.fillMaxSize(), footer) { onNextPoem(scene.trackKey) }
         } else {
             lyrics(scene)
