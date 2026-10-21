@@ -16,7 +16,7 @@ class AmllPlugin(context: PluginContext) : SpwPlugin(context) {
     override fun start() {
         if (active != null) return
         require(WorkshopApi.manager.isPermissionGranted(PluginPermission.CLASS_TRANSFORM) &&
-            WorkshopApi.manager.isPermissionGranted(PluginPermission.LIBRARY_READ)) { "请授权修改宿主界面和读取曲库后启用 AMLL 动态歌词（MiSans）" }
+            WorkshopApi.manager.isPermissionGranted(PluginPermission.LIBRARY_READ)) { "请授权修改宿主界面和读取曲库后启用 AMLL into SPW（MiSans）" }
         val target = NativeLyricsTarget.discover()
         val created = AmllRuntime()
         try {

@@ -1,8 +1,8 @@
-# AMLL 动态歌词（MiSans）
+# AMLL into SPW（MiSans）
 
 将 Apple Music 风格的动态歌词融入 [Salt Player for Windows](https://github.com/Moriafly/SPW)（SPW）原生播放界面。
 
-> 本项目是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，基于上游 0.4.0，自 2026-10-21 起由 zi-ha 维护。主要修改：内置 MiSans VF、改进纯音乐识别。完整修改声明见 [NOTICE.md](NOTICE.md)。
+> 本项目是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，基于上游 0.4.0。主要修改：内置 MiSans VF、改进纯音乐识别。完整修改声明见 [NOTICE.md](NOTICE.md)。
 
 插件通过 [SPW Workshop API](https://github.com/Moriafly/spw-workshop-api) 接入原生播放页面，以 Compose / Skia 呈现 [Apple Music-like Lyrics（AMLL）](https://github.com/amll-dev/applemusic-like-lyrics) 风格的歌词效果。正常进入 SPW 播放界面即可使用，保留宿主播放控制，无需打开独立窗口。
 

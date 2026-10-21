@@ -12,7 +12,7 @@ internal data class LyricFooterContent(val fields: List<Pair<String, String>> = 
     val sections: List<LyricFooterSection> = buildList {
         if (fields.isNotEmpty()) {
             add(LyricFooterSection(format(fields)))
-            add(LyricFooterSection("From: AMLL 动态歌词（MiSans）", attribution = true))
+            add(LyricFooterSection("From: AMLL into SPW（MiSans）", attribution = true))
         }
         for (entry in contributions) {
             add(LyricFooterSection(format(entry.fields)))

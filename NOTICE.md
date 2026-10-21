@@ -1,6 +1,6 @@
 # NOTICE / 修改声明
 
-本项目（AMLL 动态歌词（MiSans））是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，基于上游 0.4.0（提交 `daae769`），自 2026-10-21 起由 zi-ha 维护。原项目由 GaBoron 及其贡献者开发，版权归其各自作者所有。
+本项目（AMLL into SPW（MiSans））是 [GaBoron/AMLL-into-SPW](https://github.com/GaBoron/AMLL-into-SPW) 的修改版，基于上游 0.4.0（提交 `daae769`）。原项目由 GaBoron 及其贡献者开发，版权归其各自作者所有。
 
 本修改版自 2026-10-21 起的主要修改：
 
