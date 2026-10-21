@@ -11,7 +11,7 @@ internal data class LyricTypography(
     val fontSizeSp: Int? = null,
 ) {
     fun fontSize(viewportWidthDp: Float): Float =
-        fontSizeSp?.toFloat() ?: (viewportWidthDp / 13.5f).coerceIn(24f, 42f)
+        fontSizeSp?.toFloat() ?: (viewportWidthDp / 13.5f).coerceIn(24f, 50f)
 
     fun textStyle(sizeSp: Float) = TextStyle(
         fontFamily = MiSansFont.family(weight),
