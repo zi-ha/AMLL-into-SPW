@@ -50,7 +50,7 @@ internal fun layoutLyrics(document: LyricDocument, measurer: TextMeasurer, width
             val text = line.text
             val wrapped = wrapLyricLine(line, rowWidth, style, measurer)
             val constraints = Constraints(minWidth = rowWidth, maxWidth = rowWidth)
-            val main = measurer.measure(AnnotatedString(wrapped.text), style, constraints = constraints)
+            val main = measurer.measure(MiSansFont.annotated(wrapped.text, style), style, constraints = constraints)
             val rubyHeight = if (hasRuby) (main.getLineBottom(0) - main.getLineTop(0)) * .48f else 0f
             var offset = 0
             val regions = line.words.mapIndexed { wordIndex, word ->
@@ -82,8 +82,9 @@ internal fun layoutLyrics(document: LyricDocument, measurer: TextMeasurer, width
                 WordRegion(word, byRow.values.toList(), rtl, glyphs, character,
                     WordAnimation.Prepared(word, line.background, wordIndex == line.words.lastIndex, character))
             }
+            val secondaryStyle = style.copy(fontSize = (size * .48f).sp, lineHeight = (size * .68f).sp)
             val secondary = if (showSecondary) listOf(line.translation, line.romanization.takeIf { romanization }.orEmpty()).filter(String::isNotBlank).map {
-                measurer.measure(AnnotatedString(it), style.copy(fontSize = (size * .48f).sp, lineHeight = (size * .68f).sp), constraints = constraints)
+                measurer.measure(MiSansFont.annotated(it, secondaryStyle), secondaryStyle, constraints = constraints)
             } else emptyList()
             LineLayout(line, main, regions, secondary, main.size.height + rubyHeight + secondary.sumOf { it.size.height + 5 } + 10f, rubyHeight,
                 (main.getLineBottom(0) - main.getLineTop(0)) / 1.24f, if (line.duet) (width - rowWidth).toFloat() else 0f)

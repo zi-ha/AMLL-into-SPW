@@ -1,6 +1,5 @@
 package io.github.gaboron.amllspw.ui
 
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -25,13 +24,13 @@ private fun wrapLineText(text: String, width: Int, style: TextStyle, measurer: T
         val end = text.indexOf('\n', start).takeIf { it >= 0 } ?: text.length
         val paragraph = text.substring(start, end)
         if (paragraph.isNotBlank()) {
-            val unwrapped = measurer.measure(AnnotatedString(paragraph), style, softWrap = false)
+            val unwrapped = measurer.measure(MiSansFont.annotated(paragraph, style), style, softWrap = false)
             if (unwrapped.multiParagraph.maxIntrinsicWidth > width) {
                 val segments = wordSegments(paragraph, unwrapped)
                 val parts = if (timedLine != null) dynamicParts(timedLine, start, end) else segments
                 val tokens = parts.map { range ->
                     val value = paragraph.substring(range.first, range.last + 1)
-                    BreakToken(value, measurer.measure(AnnotatedString(value), style, softWrap = false)
+                    BreakToken(value, measurer.measure(MiSansFont.annotated(value, style), style, softWrap = false)
                         .multiParagraph.maxIntrinsicWidth.toDouble())
                 }
                 // Match the upstream calibration of non-dynamic text to its shaped full width.

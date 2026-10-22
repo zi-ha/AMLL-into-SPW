@@ -4,7 +4,7 @@
 
 本修改版自 2026-10-21 起的主要修改：
 
-- 将内置字体从 Source Han Sans SC 替换为 MiSans VF，并调整字重映射与字体加载；
+- 将内置字体从 Source Han Sans SC 替换为 MiSans VF，并调整字重映射与字体加载；补充 MiSans Korean / Thai / Tibetan / Arabic / Devanagari / Gurmukhi / Myanmar / Khmer / Lao VF，用于对应文字系统的歌词；
 - 改进纯音乐页识别，支持制作人员署名行、提示语变体及分行提示；
 - 调整插件名称、提供者、插件 ID 与发布信息。
 
@@ -12,7 +12,7 @@
 
 ## 字体
 
-内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 该字体按 MiSans 字体许可使用，以嵌入式方式随本插件分发，**不适用**本项目的 AGPL-3.0-only 许可证；许可证见 [licenses/MiSans-License.pdf](licenses/MiSans-License.pdf)。
+内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`、`MiSansKoreanVF.ttf`、`MiSansThaiVF.ttf`、`MiSansTibetanVF.ttf`、`MiSansArabicVF.ttf`、`MiSansDevanagariVF.ttf`、`MiSansGurmukhiVF.ttf`、`MiSansMyanmarVF.ttf`、`MiSansKhmerVF.ttf`、`MiSansLaoVF.ttf`）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 该字体按 MiSans 字体许可使用，以嵌入式方式随本插件分发，**不适用**本项目的 AGPL-3.0-only 许可证；许可证见 [licenses/MiSans-License.pdf](licenses/MiSans-License.pdf)。
 
 ## 非官方声明
 

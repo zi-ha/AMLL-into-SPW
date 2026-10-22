@@ -1,6 +1,5 @@
 package io.github.gaboron.amllspw.ui
 
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.unit.Constraints
@@ -18,8 +17,8 @@ internal fun layoutLyricFooter(content: LyricFooterContent, measurer: TextMeasur
     val rows = content.sections.mapIndexed { index, section ->
         val sectionSize = if (section.attribution) lyricFooterAttributionFontSize(size) else size
         val lineHeight = lyricFooterLineHeight(section.attribution)
-        val text = measurer.measure(AnnotatedString(section.text),
-            typography.textStyle(sectionSize).copy(lineHeight = (sectionSize * lineHeight).sp),
+        val sectionStyle = typography.textStyle(sectionSize).copy(lineHeight = (sectionSize * lineHeight).sp)
+        val text = measurer.measure(MiSansFont.annotated(section.text, sectionStyle), sectionStyle,
             constraints = Constraints(maxWidth = width.coerceAtLeast(1)))
         if (index == 0) emPx = (text.getLineBottom(0) - text.getLineTop(0)) / lineHeight
         top += emPx * lyricFooterGapEm(index, section.attribution)

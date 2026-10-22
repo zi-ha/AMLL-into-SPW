@@ -29,4 +29,4 @@
 
 SPW Workshop API、Kotlin、Compose、Skia 和 Skiko 由宿主提供，不随插件重复打包。Gradle Wrapper 使用 Apache-2.0 许可证。
 
-内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`，字重轴 150–700）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 采用 MiSans 字体许可，许可证见 `licenses/MiSans-License.pdf`。该字体以嵌入式方式随插件及其源码包分发，未单独作为字体产品提供下载，且不适用本项目的 AGPL-3.0-only 许可证。
+内置字体为小米 [MiSans](https://hyperos.mi.com/font) 可变字体（`MiSansVF.ttf`、`MiSansKoreanVF.ttf`、`MiSansThaiVF.ttf`、`MiSansTibetanVF.ttf`、`MiSansArabicVF.ttf`、`MiSansDevanagariVF.ttf`、`MiSansGurmukhiVF.ttf`、`MiSansMyanmarVF.ttf`、`MiSansKhmerVF.ttf`、`MiSansLaoVF.ttf`，字重轴均为 150–700）。Copyright © 2020–2025 Beijing Xiaomi Mobile Software Co.,Ltd. All Rights Reserved. 采用 MiSans 字体许可，许可证见 `licenses/MiSans-License.pdf`。该字体以嵌入式方式随插件及其源码包分发，未单独作为字体产品提供下载，且不适用本项目的 AGPL-3.0-only 许可证。
