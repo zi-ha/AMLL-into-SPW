@@ -18,12 +18,21 @@ class AmllPlugin(context: PluginContext) : SpwPlugin(context) {
         require(WorkshopApi.manager.isPermissionGranted(PluginPermission.CLASS_TRANSFORM) &&
             WorkshopApi.manager.isPermissionGranted(PluginPermission.LIBRARY_READ)) { "请授权修改宿主界面和读取曲库后启用 AMLL into SPW（MiSans）" }
         val target = NativeLyricsTarget.discover()
+        val renderer = NativeLyricsTarget.renderer(target.owner)
+            ?: error("无法定位宿主歌词行渲染组件，请更新插件以适配当前宿主版本")
+        // Resolve the original entry point before registering anything. Without it the replacement
+        // slot would draw nothing and the host subtree could not run, which is the state that made
+        // the player page lose the measurement its background panel depends on. Refusing to start
+        // leaves the native lyrics untouched instead of producing a broken page.
+        val original = renderer.reflective()
+            ?: error("无法反射定位宿主歌词组件 ${renderer.owner}#${renderer.method}，请更新插件以适配当前宿主版本")
         val created = AmllRuntime()
         try {
-            handle = WorkshopApi.hookRegistrar.replaceComposable(target.owner, target.method, target.caller, target.parameters) { call ->
-                val arguments = NativeLyricsArguments.read(call.arguments)
-                // Argument 7 is "activated", not "showSubText".
-                NativeLyricsContent(created, arguments.modifier, true)
+            // Keep the original renderer running (it owns the measurement the player page reads)
+            // and simply make it invisible; our layer draws beside it in the same slot.
+            handle = WorkshopApi.hookRegistrar.replaceComposable(
+                renderer.owner, renderer.method, target.owner, renderer.parameters) { call ->
+                HostLyricsPassthrough(call, renderer, original, created)
             }
             active = created
             current = created
@@ -49,7 +58,9 @@ class AmllPlugin(context: PluginContext) : SpwPlugin(context) {
     override fun update() = stop()
     override fun delete() = stop()
 
-    companion object { @Volatile internal var current: AmllRuntime? = null; private set }
+    companion object {
+        @Volatile internal var current: AmllRuntime? = null; private set
+    }
 }
 
 /** PF4J constructs extensions independently; this bridge is active only for the plugin lifetime. */

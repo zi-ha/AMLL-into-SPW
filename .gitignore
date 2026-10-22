@@ -15,3 +15,7 @@ local.properties
 **/*Tests.kt
 **/*Tests.java
 .workbuddy/
+!/src/test/
+!/src/test/**/DrawIsolationTest.kt
+!/src/test/**/NativeLyricsArgumentsTest.kt
+!/src/test/**/TrackSwitchRenderingTest.kt

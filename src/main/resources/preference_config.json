@@ -23,6 +23,7 @@
       { "type": "switch", "key": "spring", "title": "弹簧滚动与错落动画", "default_value": true },
       { "type": "switch", "key": "hide_passed", "title": "隐藏已唱过的歌词", "default_value": false },
       { "type": "switch", "key": "romanization", "title": "显示音译与注音", "default_value": true },
+      { "type": "switch", "key": "instrumental_poetry", "title": "纯音乐显示诗词", "default_value": true, "summary": "无歌词的纯音乐在歌词区域显示一首诗；关闭后该区域留空。" },
       { "type": "switch", "key": "show_footer", "title": "末尾信息栏", "default_value": true, "summary": "歌词末尾的歌曲元数据与其他插件信息。" },
       { "type": "switch", "key": "show_source", "title": "显示歌词来源", "default_value": false, "summary": "在末尾信息栏中标注歌词来自哪个文件或接口；默认关闭。" },
       { "type": "switch", "key": "reduced_motion", "title": "减少动态效果", "default_value": false, "summary": "关闭模糊、发光、缩放与弹簧动画，保留准确的逐字高亮。" }

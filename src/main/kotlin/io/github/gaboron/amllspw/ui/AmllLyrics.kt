@@ -27,9 +27,16 @@ internal fun NativeLyricsSurface(presentation: LyricsPresentation, options: Rend
     onPlaying: () -> Boolean? = { null }, onSeekGeneration: () -> Long = { 0 },
     bottomContent: LyricFooterContent? = null) {
     val measurer = rememberTextMeasurer(cacheSize = 1_024)
-    val painter = remember(measurer) { LyricLinePainter(measurer) }
+    // This painter owns native Skia objects and must outlive measurer swaps: recreating it on every
+    // measurer change made Compose forget the old effect, which used to close a footer painter that
+    // was still drawing. It is created once per surface and only closed when the surface goes away.
+    val latestMeasurer = rememberUpdatedState(measurer)
+    val painter = remember { LyricLinePainter { latestMeasurer.value } }
+    // Never close inside onDispose: the render thread may still be drawing the last frame of this
+    // node, and releasing its native handles underneath it takes down the host's whole layer.
+    DisposableEffect(painter) { onDispose { SkiaRetire.retire(painter) } }
     val footerPainter = remember { LyricFooterPainter() }
-    DisposableEffect(painter, footerPainter) { onDispose { painter.close(); footerPainter.close() } }
+    DisposableEffect(footerPainter) { onDispose { SkiaRetire.retire(footerPainter) } }
     val footerContent = when {
         !options.footer -> LyricFooterContent()
         bottomContent != null -> bottomContent
@@ -80,6 +87,7 @@ internal fun NativeLyricsSurface(presentation: LyricsPresentation, options: Rend
             if (footerContent.text.isNotBlank()) text = AnnotatedString(footerContent.text)
             customActions = listOf(CustomAccessibilityAction("回到当前歌词") { viewport.follow(); true })
         }) {
+        withIsolatedCanvas {
         val nanos = frameTime
         val dt = if (cache.lastFrame == 0L) 0f else ((nanos - cache.lastFrame) / 1e9f).coerceIn(0f, .064f)
         cache.lastFrame = nanos
@@ -88,19 +96,28 @@ internal fun NativeLyricsSurface(presentation: LyricsPresentation, options: Rend
         val position = (hostPosition - presentation.offsetMs).coerceAtLeast(0)
         val seek = clock.discontinuity || (cache.lastPosition >= 0 && abs(position - cache.lastPosition) > 1_500)
         cache.lastPosition = position
-        val fontSize = options.typography.fontSize(size.width / density.density)
-        val margin = size.width * .075f
-        val width = (size.width - margin * 2).roundToInt().coerceAtLeast(1)
-        if (cache.width != width || cache.fontSize != fontSize) {
+        val targetFontSize = options.typography.fontSize(size.width / density.density)
+        val targetMargin = size.width * .075f
+        val width = (size.width - targetMargin * 2).roundToInt().coerceAtLeast(1)
+        // Exact comparison made the page transition re-flow the entire document on every frame,
+        // because the animated column never lands on the same width twice. Drift below the
+        // threshold is invisible and the rows are drawn at the current margin anyway.
+        if (LayoutBudget.widthChanged(cache.width, width) || LayoutBudget.fontSizeChanged(cache.fontSize, targetFontSize)) {
             cache.width = width
-            cache.fontSize = fontSize
-            cache.groups = layoutLyrics(presentation.document, measurer, width, fontSize, showSecondary, options.romanization, options.typography)
-            cache.footer = layoutLyricFooter(footerContent, measurer, width, fontSize, options.typography)
+            cache.fontSize = targetFontSize
+            cache.margin = targetMargin
+            cache.groups = layoutLyrics(presentation.document, measurer, width, targetFontSize, showSecondary, options.romanization, options.typography)
+            cache.footer = layoutLyricFooter(footerContent, measurer, width, targetFontSize, options.typography)
             cache.footerContent = footerContent
             painter.clearTextCache()
         }
+        // Draw with the geometry the document was actually laid out for. During a host transition
+        // the column is a few pixels off on every frame; following it would make every glyph
+        // shimmer and would re-wrap lines that were measured for a different width.
+        val fontSize = cache.fontSize
+        val margin = cache.margin
         if (cache.footerContent != footerContent) {
-            cache.footer = layoutLyricFooter(footerContent, measurer, width, fontSize, options.typography)
+            cache.footer = layoutLyricFooter(footerContent, measurer, cache.width, fontSize, options.typography)
             cache.footerContent = footerContent
         }
         viewport.height = size.height
@@ -146,10 +163,10 @@ internal fun NativeLyricsSurface(presentation: LyricsPresentation, options: Rend
                 }) {
                     // saveLayer is only needed at viewport edges; inner text draws directly.
                     val native = drawContext.canvas.skiaCanvas
-                    val paint = if (edgeAlpha < .999f) org.jetbrains.skia.Paint().apply { alpha = (edgeAlpha * 255).toInt() } else null
+                    val paint = if (edgeAlpha < .999f) painter.edgePaint(edgeAlpha) else null
                     if (paint != null) native.saveLayer(row.layerBounds, paint)
                     try { with(painter) { paintLine(row, position, groupActive, abs(index - frame.focus), manual, options, voice.highlight.value, lyricColor) } }
-                    finally { if (paint != null) { native.restore(); paint.close() } }
+                    finally { if (paint != null) native.restore() }
                 }
                 hits += ViewportMotion.Hit(bounds, row.line.startMs)
                 rowY += row.height
@@ -162,12 +179,13 @@ internal fun NativeLyricsSurface(presentation: LyricsPresentation, options: Rend
             val x = if (duet) size.width - margin - interludeWidth(fontSize * density.density) else margin
             paintInterlude(interlude.snapshot, y, x, fontSize * density.density, hits.map { it.bounds }, options.reducedMotion, lyricColor)
         }
-    }
+    } }
 }
 
 private class LayoutCache {
     var width = -1
     var fontSize = -1f
+    var margin = 0f
     var groups = emptyList<GroupLayout>()
     var footer: LyricFooterLayout? = null
     var footerContent: LyricFooterContent? = null

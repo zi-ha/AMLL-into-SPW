@@ -28,7 +28,7 @@ internal class AmllPreferences : AutoCloseable {
         spring = c.get("spring", true), hidePassed = c.get("hide_passed", false),
         footer = c.get("show_footer", true),
         showSource = c.get("show_source", false),
-        romanization = c.get("romanization", true), reducedMotion = c.get("reduced_motion", false),
+        romanization = c.get("romanization", true), instrumentalPoetry = c.get("instrumental_poetry", true), reducedMotion = c.get("reduced_motion", false),
         coloredLyrics = c.get("colored_lyrics", false),
         typography = LyricTypography.fromPreferences(weight(c), c.get("font_size", "auto")),
     )

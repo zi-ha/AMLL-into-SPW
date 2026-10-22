@@ -11,6 +11,7 @@ internal data class RenderOptions(
     val footer: Boolean = true,
     val showSource: Boolean = false,
     val romanization: Boolean = true,
+    val instrumentalPoetry: Boolean = true,
     val reducedMotion: Boolean = false,
     val coloredLyrics: Boolean = false,
     val typography: LyricTypography = LyricTypography(),

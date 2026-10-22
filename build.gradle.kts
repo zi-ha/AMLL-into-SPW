@@ -25,6 +25,8 @@ dependencies {
     implementation("net.jthink:jaudiotagger:3.0.1")
     implementation("org.ow2.asm:asm:9.10.1")
     dependencySources("net.jthink:jaudiotagger:3.0.1:sources")
+    testImplementation(kotlin("test-junit"))
+    testImplementation(compose.desktop.currentOs)
 }
 
 spmod {
@@ -43,6 +45,7 @@ val sourceArchive = tasks.register<Zip>("sourceArchive") {
     archiveFileName.set("amll-into-spw-misans-${project.version}-source.zip")
     destinationDirectory.set(layout.buildDirectory.dir("distributions"))
     from("src/main") { into("src/main") }
+    from("src/test") { into("src/test") }
     from("gradle") { into("gradle") }
     from("docs") { into("docs") }
     from("licenses") { into("licenses") }

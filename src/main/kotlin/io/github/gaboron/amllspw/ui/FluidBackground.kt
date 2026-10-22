@@ -8,7 +8,8 @@ import kotlin.math.sin
 
 /** Continuous soft color fields from the song artwork, without a bitmap animation loop. */
 internal fun DrawScope.drawFluidBackground(colors: List<Int>, elapsedSeconds: Float) {
-    drawRect(Color(colors.first()).copy(alpha = .94f))
+    // Fully opaque: when drawn over the host's own lyrics it must hide them completely.
+    drawRect(Color(colors.first()))
     colors.forEachIndexed { i, color ->
         val angle = elapsedSeconds * (.11f + i * .013f) + i * 1.7f
         val center = Offset(size.width * (.5f + .4f * sin(angle)), size.height * (.5f + .43f * cos(angle * .83f + i)))
